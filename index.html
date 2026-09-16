@@ -60,6 +60,16 @@
   .col[data-model="claude"] .dot { background: var(--claude); }
   .col[data-model="gpt"] .dot { background: var(--gpt); }
   .col[data-model="gemini"] .dot { background: var(--gemini); }
+  .key-input {
+    margin: 8px 14px 0;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 10px;
+    color: var(--text);
+    font-size: 12px;
+  }
+  .key-input:focus { outline: 1px solid #4a90ff; }
   .thinking {
     margin: 10px 14px 0;
     padding: 8px 10px;
@@ -126,28 +136,31 @@
 
 <header>
   <h1>Multi-LLM Thinking View</h1>
-  <span class="status" id="globalStatus">Mock mode — see README to wire real API keys</span>
+  <span class="status" id="globalStatus">Paste each API key below its model — Claude & Gemini work directly, OpenAI needs a proxy</span>
 </header>
 
 <div class="cols">
   <div class="col" data-model="claude">
     <div class="col-head"><span class="dot"></span>Claude</div>
+    <input class="key-input" id="key-claude" type="password" placeholder="Claude API key (sk-ant-...)" />
     <details class="thinking" id="think-claude"><summary>Thinking</summary><span class="think-text"></span></details>
     <div class="response" id="resp-claude"><span class="placeholder">Waiting for a prompt…</span></div>
   </div>
   <div class="col" data-model="gpt">
     <div class="col-head"><span class="dot"></span>ChatGPT</div>
+    <input class="key-input" id="key-gpt" type="password" placeholder="OpenAI API key (sk-...)" />
     <details class="thinking" id="think-gpt"><summary>Thinking</summary><span class="think-text"></span></details>
     <div class="response" id="resp-gpt"><span class="placeholder">Waiting for a prompt…</span></div>
   </div>
   <div class="col" data-model="gemini">
     <div class="col-head"><span class="dot"></span>Gemini</div>
+    <input class="key-input" id="key-gemini" type="password" placeholder="Gemini API key (AIza...)" />
     <details class="thinking" id="think-gemini"><summary>Thinking</summary><span class="think-text"></span></details>
     <div class="response" id="resp-gemini"><span class="placeholder">Waiting for a prompt…</span></div>
   </div>
 </div>
 
-<div class="note">Toggle "Thinking" per model to see simulated reasoning. Real API wiring: see README.md.</div>
+<div class="note">Keys are saved only in this browser (localStorage) and sent only to their own vendor's API. OpenAI blocks direct browser calls — see README.md.</div>
 
 <footer>
   <input id="promptInput" type="text" placeholder="Ask all three models…" />
